@@ -1,0 +1,29 @@
+metric_id,metric_name,business_definition,source_table,owner_team,minimum_group_size,metric_view
+M01,Headcount,Active employees on the last day of the month (permanent and contract).,fact_headcount_monthly / dim_employee,HR Analytics,5,m01_headcount
+M02,Hires,Employees whose hire_date falls in the month.,fact_headcount_monthly,HR Analytics,5,m02_hires
+M03,Exits,"Employees whose exit_date falls in the month (resigned, terminated or contract ended).",fact_headcount_monthly,HR Analytics,5,m03_exits
+M04,Attrition rate (monthly),Share of people who left in the month.,fact_headcount_monthly,HR Analytics,10,m04_attrition_monthly
+M05,Attrition rate (rolling 12 months),Leavers in the last 12 months divided by average headcount over the same months.,fact_headcount_monthly,HR Analytics,10,m05_attrition_rolling12
+M06,Voluntary attrition rate,Same as M05 but only resignations (voluntary_exits).,fact_headcount_monthly,HR Analytics,10,m06_voluntary_attrition
+M07,Gross pay,Total earnings before deductions for the month.,fact_payroll,Payroll,5,m07_gross_pay
+M08,Net pay,Take-home pay after employee deductions.,fact_payroll,Payroll,5,m08_net_pay
+M09,Payroll cost (employer cost),Full cost of employees to the company: gross pay plus employer PF and ESI.,fact_payroll,Finance,5,m09_payroll_cost
+M10,Cost per head,Average employer cost per paid employee.,fact_payroll,Finance,5,m10_cost_per_head
+M11,Overtime share,How much of payroll cost is overtime pay.,fact_payroll,Payroll,5,m11_overtime_share
+M12,Variable pay share,"Bonus, incentive and award pay as a share of gross pay.",fact_payroll,Payroll,5,m12_variable_pay_share
+M13,Attendance rate,Days present (half day counts 0.5) divided by scheduled working days.,fact_attendance_monthly,HR Analytics,5,m13_attendance_rate
+M14,Late arrival rate,Late check-ins per present day.,fact_attendance_monthly,HR Analytics,5,m14_late_arrival_rate
+M15,Leave without pay days,Unpaid absence and unpaid leave days.,fact_payroll,Payroll,5,m15_lop_days
+M16,Revenue,Income booked in the ledger (accounts 4001-4004).,fact_ledger,Finance,,m16_revenue
+M17,Net profit,Revenue minus all expenses (4xxx less 5xxx).,fact_ledger,Finance,,m17_net_profit
+M18,Operating margin,Net profit as a share of revenue.,fact_ledger,Finance,,m18_operating_margin
+M19,Payroll as % of revenue,Share of revenue consumed by payroll cost.,fact_payroll + fact_ledger,Finance,,m19_payroll_pct_revenue
+M20,Days sales outstanding (DSO),Average days to collect: receivables divided by credit sales x days.,"fact_invoice, fact_ledger",Finance,,m20_dso
+M21,Overdue receivables,Unpaid invoice balance past due date at the report date.,fact_invoice,Finance,,m21_overdue_receivables
+M22,Task completion rate,Tasks done divided by tasks planned in the sprint (cancelled tasks excluded).,fact_task,Engineering Ops,5 tasks,m22_task_completion_rate
+M23,On-time delivery rate,Done tasks completed on or before the sprint end date.,fact_task,Engineering Ops,5 tasks,m23_on_time_delivery
+M24,Velocity,Story points completed in the sprint.,fact_task,Engineering Ops,,m24_velocity
+M25,Average cycle time,Days from start to completion for done tasks.,fact_task,Engineering Ops,5 tasks,m25_avg_cycle_time
+M26,Anomaly flag rate,Share of scored records flagged by the AI anomaly service.,fact_anomaly,AI/ML,,m26_anomaly_flag_rate
+M27,High-risk share,Share of employees in the High attrition-risk band.,fact_attrition_risk,AI/ML,10,m27_high_risk_share
+M28,Forecast error (MAPE),Average absolute percentage error of headcount forecasts versus actuals.,fact_forecast vs fact_headcount,AI/ML,,m28_forecast_error
