@@ -242,7 +242,23 @@ def custom_rules(table, df, lookup, checks):
         checks.append((src.eq("attendance_monthly_features").fillna(False).astype(bool) & ~is_blank(money),
                        "money_at_risk must be blank for an attendance row"))
  
- 
+def extra_rules(table, df, lookup, checks):
+    """Task 2 additions: business rules found while building the warehouse."""
+    if table == "fact_payroll":
+        emp = as_text(df, "employee_id")
+        month = as_text(df, "date_key")
+        key = emp.fillna("") + "|" + month.fillna("")
+        checks.append((key.duplicated(keep="first") & ~is_blank(emp),
+                       "duplicate employee-month (employee_id + date_key already present)"))
+
+    elif table == "fact_attendance_monthly":
+        exit_map = lookup("dim_employee", "employee_id", value_col="exit_date", as_map=True)
+        exit_date = to_date(as_text(df, "employee_id").map(exit_map))
+        period = to_date(as_text(df, "period_end_date"))
+        month_p = period.dt.year * 12 + period.dt.month
+        month_e = exit_date.dt.year * 12 + exit_date.dt.month
+        checks.append((as_bool(month_p > month_e),
+                       "attendance recorded in a month after the exit date of the employee"))
 def contract_from_dictionary(table, dictionary):
     """For tables without a data_contracts entry: type + empty-or-not from data_dictionary."""
     rows = dictionary[dictionary["sheet"] == table]
@@ -277,7 +293,10 @@ def validate(table, df, contract, lookup):
                 s = as_text(df, c)
                 checks.append((~is_blank(s) & ~s.isin(lookup(ptab, pcol)), f"{c}: not found in {ptab}.{pcol}"))
  
+
+
     custom_rules(table, df, lookup, checks)
+    extra_rules(table, df, lookup, checks)
     return checks
  
  

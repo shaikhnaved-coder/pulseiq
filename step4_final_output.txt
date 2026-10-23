@@ -1,0 +1,43 @@
+=== A. The 82 payroll rows outside their version dates: is it the exit month? ===
+rows_ | in_exit_month | valid_to_equals_exit_date | after_exit_date
+82 | 82 | 82 | 82
+
+=== B. Payroll employee-months that appear more than once ===
+employee-months with more than one payroll row: 2
+employee_id | date_key | n | item_ids | run_ids | net_pays
+EMP-0194 | 20260228 | 2 | PI-004059, PI-X0001 | PR-2026-02, PR-2026-02 | 137153.27, 137153.27
+EMP-0598 | 20250531 | 2 | PI-000761, PI-X0002 | PR-2025-05, PR-2025-05 | 58013.15, 58013.15
+
+=== C. employee_key checks on the other facts that carry it ===
+-- fact_attendance_monthly
+rows: 7343
+employee_key is NULL: 0
+employee_key not in dim_employee: 0
+key belongs to a different employee_id: 0
+date outside the version's dates: 85
+department differs from the version's department: 0
+
+-- fact_leave
+rows: 3441
+employee_key is NULL: 0
+employee_key not in dim_employee: 0
+key belongs to a different employee_id: 0
+date outside the version's dates: 0
+
+-- fact_attrition_risk
+rows: 425
+employee_key is NULL: 0
+employee_key not in dim_employee: 0
+key belongs to a different employee_id: 0
+date outside the version's dates: 0
+department differs from the version's department: 0
+
+=== D. The tasks with no employee version valid at the sprint end ===
+reason | tasks | employees | valid_at_sprint_start
+sprint ends after last version ended | 126 | 54 | 126
+
+=== E. fact_anomaly: employee versions valid at the period end ===
+versions | anomalies
+0 | 21
+1 | 384
+

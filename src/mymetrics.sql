@@ -337,3 +337,27 @@ FROM clean.metric_dictionary d
 LEFT JOIN (SELECT view_name FROM duckdb_views()
            WHERE schema_name = 'metrics' AND view_name LIKE 'm__\_%' ESCAPE '\') v
        ON LOWER(d.metric_id) = LEFT(v.view_name, 3);
+
+-- Helper views for the dashboard (not new metrics; the app may only read the metrics schema)
+
+-- department names, so charts show "Engineering" instead of "D01"
+CREATE OR REPLACE VIEW metrics.lookup_department AS
+SELECT department_id, department_name
+FROM wh.dim_department;
+
+-- people working today, by city tier (minimum group 5)
+CREATE OR REPLACE VIEW metrics.app_headcount_by_tier AS
+SELECT l.city_tier, COUNT(*) AS headcount, COUNT(*) AS group_size
+FROM wh.dim_employee e
+JOIN wh.dim_location l USING (work_location)
+WHERE e.is_current = 'Y' AND e.employment_status = 'Active'
+GROUP BY 1
+HAVING COUNT(*) >= 5;
+
+-- people working today, by work mode (minimum group 5)
+CREATE OR REPLACE VIEW metrics.app_headcount_by_work_mode AS
+SELECT work_mode, COUNT(*) AS headcount, COUNT(*) AS group_size
+FROM wh.dim_employee
+WHERE is_current = 'Y' AND employment_status = 'Active'
+GROUP BY 1
+HAVING COUNT(*) >= 5;
