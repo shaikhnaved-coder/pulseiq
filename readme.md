@@ -1,8 +1,7 @@
 # PulseIQ Analytics
 
-PulseIQ is a trusted people-analytics warehouse and dashboard built for
-Zenith Nova Technologies (part of Aura Workforce). It loads the raw HR and
-finance exports through a repeatable pipeline that validates every column
+PulseIQ is a trusted people-analytics warehouse and dashboard (part of Aura Workforce). 
+It loads the raw HR and finance exports through a repeatable pipeline that validates every column
 against its data contract, builds a star-schema warehouse, runs a
 data-quality gate on every load, and serves governed metrics to a workforce
 and headcount dashboard. It is for HR leaders and analysts who need
@@ -27,9 +26,7 @@ and the pipeline run are in the report PDF and in the `docs/` folder.
   report. The gate blocks when a critical check fails.
 - **Governed metric layer (PQ-04):** official metrics as reusable SQL views
   with the minimum-group-size privacy rule.
-- **Workforce and headcount dashboard (PQ-05):** headcount trend, hires and
-  exits, mix by department, city tier and work mode, with filters.
-
+-- **Workforce and headcount dashboard (PQ-05):** KPI tiles, headcount trend, headcount by department, city tier and work mode, with department and date filters.
 ## Tech stack
 Python 3.12, pandas, pandera, DuckDB, SQL, Streamlit, Git/GitHub.
 
