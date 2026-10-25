@@ -47,11 +47,41 @@ Python 3.12, pandas, pandera, DuckDB, SQL, Streamlit, Git/GitHub.
 11. Start the dashboard: `streamlit run app\app.py` (opens at http://localhost:8501)
 
 ## Architecture
+## Architecture
+
+Pipeline:
+
 ```mermaid
-<paste the Mermaid diagram from docs/star_schema.md here>
+flowchart LR
+    A["Raw CSV / XLSX exports"] --> B["raw schema (DuckDB)"]
+    B --> C{"ETL: contract validation"}
+    C -->|passed| D["clean schema"]
+    C -->|failed rows| E["etl.quarantine"]
+    D --> F["wh star schema"]
+    F --> G["Data-quality gatekeeper"]
+    F --> H["Governed metric views"]
+    H --> I["Streamlit dashboard"]
 ```
-Flow: raw CSV/XLSX -> `raw` schema -> ETL contract validation -> `clean` schema
-(and `etl.quarantine`) -> `wh` star schema -> metric views -> dashboard.
+
+Star schema (payroll, attendance and leave). Facts join to `dim_employee`
+through `employee_key` (slowly changing dimension):
+
+```mermaid
+erDiagram
+    DIM_EMPLOYEE ||--o{ FACT_PAYROLL : employee_key
+    DIM_DATE ||--o{ FACT_PAYROLL : date_key
+    DIM_DEPARTMENT ||--o{ FACT_PAYROLL : department_id
+    DIM_ROLE ||--o{ FACT_PAYROLL : role_id
+    DIM_EMPLOYEE ||--o{ FACT_ATTENDANCE_MONTHLY : employee_key
+    DIM_DATE ||--o{ FACT_ATTENDANCE_MONTHLY : date_key
+    DIM_DEPARTMENT ||--o{ FACT_ATTENDANCE_MONTHLY : department_id
+    DIM_EMPLOYEE ||--o{ FACT_LEAVE : employee_key
+    DIM_LEAVE_TYPE ||--o{ FACT_LEAVE : leave_type_code
+    DIM_DATE ||--o{ FACT_LEAVE : start_end_date_key
+```
+
+The full diagrams for every fact table are in [docs/star_schema.md](docs/star_schema.md).
+
 
 ## How I verified it works
 - **Idempotent ETL:** two runs gave the same result: 29 tables, 62,770 rows in,
