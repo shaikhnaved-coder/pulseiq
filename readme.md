@@ -34,11 +34,11 @@ and the pipeline run are in the report PDF and in the `docs/` folder.
 Python 3.12, pandas, pandera, DuckDB, SQL, Streamlit, Git/GitHub.
 
 ## Run it locally
-1. Clone the repository: `git clone <https://github.com/shaikhnaved-coder/pulseiq.git>` then `cd pulseiq`
+1. Clone the repository: `git clone https://github.com/shaikhnaved-coder/pulseiq.git` then `cd pulseiq`
 2. Create a virtual environment: `python -m venv venv`
 3. Activate it (Windows PowerShell): `venv\Scripts\Activate.ps1`
 4. Install the packages: `pip install -r requirements.txt`
-5. Download the dataset from <Google Drive link> and place it in `03_Data/`
+5. Download the dataset from https://docs.google.com/spreadsheets/d/1tbSD2iIPvjEmTrHYHPwDamDIhxramBvM and place it in `03_Data/`
 6. Load the raw data: `cd 05_Starter` then `python load_to_duckdb.py`
 7. Run the ETL (still in `05_Starter`): `python etl.py`, then `cd ..`
 8. Build the warehouse: `python src\warehouse.py`
@@ -46,7 +46,6 @@ Python 3.12, pandas, pandera, DuckDB, SQL, Streamlit, Git/GitHub.
 10. Create the metric views: `python src\run_sql.py`
 11. Start the dashboard: `streamlit run app\app.py` (opens at http://localhost:8501)
 
-## Architecture
 ## Architecture
 
 Pipeline:
