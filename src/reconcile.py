@@ -13,13 +13,13 @@ README = {
 }
 
 def n(sql):
-    return con.sql(sql).fetchone()[0]
+    return con.execute(sql).fetchone()[0]
 
 bad = 0
 tot = dict(raw=0, quar=0, passed=0, wh=0)
 print(f"{'table':26}{'README':>8}{'raw':>8}{'quar':>6}{'passed':>8}{'clean':>8}{'wh':>8}  result")
 for t, readme in README.items():
-    s = con.sql(f"SELECT rows_in, rows_passed, rows_quarantined FROM etl.summary WHERE table_name = '{t}'").fetchone()
+    s = con.execute(f"SELECT rows_in, rows_passed, rows_quarantined FROM etl.summary WHERE table_name = '{t}'").fetchone()
     if s is None:
         print(f"{t:26} not in etl.summary"); bad += 1; continue
     rin, passed, quar = s

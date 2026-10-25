@@ -3,12 +3,12 @@ import duckdb
 con = duckdb.connect("05_Starter/pulseiq.duckdb", read_only=True)
 
 def has_col(table, col):
-    n = con.sql(f"""SELECT COUNT(*) FROM information_schema.columns
+    n = con.execute(f"""SELECT COUNT(*) FROM information_schema.columns
         WHERE table_schema = 'wh' AND table_name = '{table}' AND column_name = '{col}'""").fetchone()[0]
     return n == 1
 
 def one(sql):
-    return con.sql(sql).fetchone()[0]
+    return con.execute(sql).fetchone()[0]
 
 LINKS = [
     ("fact_payroll", "employee_key", "dim_employee", "employee_key"),
@@ -61,7 +61,7 @@ for fact, fk, dim, pk in LINKS:
     flag = "" if nulls + missing == 0 else "   <-- LOOK"
     print(f"{fact}.{fk} -> {dim}.{pk}: rows={rows} null={nulls} no_match={missing}{flag}")
     if missing:
-        vals = con.sql(f"""SELECT DISTINCT {fk} FROM wh.{fact}
+        vals = con.execute(f"""SELECT DISTINCT {fk} FROM wh.{fact}
             WHERE {fk} IS NOT NULL AND {fk} NOT IN ({sub}) LIMIT 5""").fetchall()
         print("    example unmatched values:", [v[0] for v in vals])
     total += nulls + missing
@@ -83,7 +83,7 @@ print("attendance months with no payroll row:", one("""
 print("payroll months with no attendance row:", one("""
     SELECT COUNT(*) FROM wh.fact_payroll p WHERE NOT EXISTS
     (SELECT 1 FROM wh.fact_attendance_monthly a WHERE p.employee_id = a.employee_id AND p.date_key = a.date_key)"""))
-for r in con.sql("""
+for r in con.execute("""
     SELECT p.payroll_item_id, p.employee_id, p.date_key FROM wh.fact_payroll p WHERE NOT EXISTS
     (SELECT 1 FROM wh.fact_attendance_monthly a WHERE p.employee_id = a.employee_id AND p.date_key = a.date_key)
     LIMIT 5""").fetchall():

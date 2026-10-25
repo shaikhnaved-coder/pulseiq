@@ -70,12 +70,12 @@ for table, pk_cols in PKS.items():
 print(f"{'table':28}{'clean':>9}{'wh':>9}  result")
 bad = 0
 for table in PKS:
-    a = con.sql(f'SELECT COUNT(*) FROM "{SRC}"."{table}"').fetchone()[0]
-    b = con.sql(f"SELECT COUNT(*) FROM wh.{table}").fetchone()[0]
+    a = con.sql(f'SELECT COUNT(*) FROM "{SRC}"."{table}"').fetchall()[0][0]
+    b = con.sql(f"SELECT COUNT(*) FROM wh.{table}").fetchall()[0][0]
     bad += (a != b)
     print(f"{table:28}{a:>9}{b:>9}  {'OK' if a == b else 'MISMATCH'}")
 print()
 for t in EXTRA:
-    n = con.sql(f"SELECT COUNT(*) FROM wh.{t} WHERE employee_key IS NULL").fetchone()[0]
+    n = con.sql(f"SELECT COUNT(*) FROM wh.{t} WHERE employee_key IS NULL").fetchall()[0][0]
     print(f"{t}: rows with no employee_key = {n}")
 print("\nAll tables match." if bad == 0 else f"\n{bad} table(s) do not match.")

@@ -1,4 +1,14 @@
+venv/
 .venv/
 __pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+.DS_Store
 *.duckdb
 *.duckdb.wal
+*.zip
+_scratch/
+/pulseiq/
+
+pulseiq_copy/

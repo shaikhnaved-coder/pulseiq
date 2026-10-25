@@ -143,3 +143,5 @@ with right:
         f"**Insight:** {top_mode['work_mode']} is the most common work mode with "
         f"{int(top_mode['headcount'])} people, {mode_share:.0f}% of the {int(mode['headcount'].sum())} employees."
     )
+
+    
