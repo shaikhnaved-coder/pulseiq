@@ -121,3 +121,11 @@ The full diagrams for every fact table are in [docs/star_schema.md](docs/star_sc
 - May 2026: attendance 92.6% (1.3 pts below the 94.0% average). Leave days +34%, late arrivals -11%, overtime -10% vs the monthly average; 1 holiday(s): 01 May (Fri), including 1 long weekend. Likely caused by a leave spike around the holidays and long weekends.
 - September 2025: attendance 95.3% (1.3 pts above the 94.0% average). Leave days +0%, late arrivals +6%, overtime +2% vs the monthly average; no holidays. Likely caused by a normal month with steady attendance.
 
+## Attrition analytics
+
+### Actual exits
+![Actual exits 1](docs/Actual_exits1.png)
+![Actual exits 2](docs/Actualexits2.png)
+
+### Predicted, not certain
+![Predicted risk](docs/prediction.png)
