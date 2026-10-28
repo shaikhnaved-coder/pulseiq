@@ -106,3 +106,18 @@ The full diagrams for every fact table are in [docs/star_schema.md](docs/star_sc
 - No scheduler: the pipeline runs by hand.
 - Next: containerise the pipeline, add CI to run the tests on every push,
   deploy the dashboard, and add the next dashboards.
+
+
+  ## Attendance and leave findings 
+  ![Attendance page](docs/attendance.png)
+
+- Department gap: overall attendance is 94.0%. D08 is lowest at 90.6% and D03 highest at 94.8%, a gap of 4.2 points.
+- Late arrival peak: September 2026 had 618 late arrivals, 15% above the monthly average of 535.
+- Leave mix: Earned (Privilege) Leave is the largest leave type with 2,366 days, 32% of all leave days.
+
+# Three unusual months and what likely caused them
+
+- July 2025: attendance 95.3% (1.4 pts above the 94.0% average). Leave days -2%, late arrivals +4%, overtime +8% vs the monthly average; no holidays. Likely caused by a normal month with steady attendance.
+- May 2026: attendance 92.6% (1.3 pts below the 94.0% average). Leave days +34%, late arrivals -11%, overtime -10% vs the monthly average; 1 holiday(s): 01 May (Fri), including 1 long weekend. Likely caused by a leave spike around the holidays and long weekends.
+- September 2025: attendance 95.3% (1.3 pts above the 94.0% average). Leave days +0%, late arrivals +6%, overtime +2% vs the monthly average; no holidays. Likely caused by a normal month with steady attendance.
+
