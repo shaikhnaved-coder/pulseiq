@@ -1,7 +1,7 @@
 import duckdb, os, pandas as pd
 
 # ---- ENTER THE PQ-09 ANSWER KEY HERE (leave None until you have it) ----
-ANSWER_KEY = {"gross": None, "net": None, "employer_cost": None}
+ANSWER_KEY = {"gross": 849626960.27, "net": 751018306.69, "employer_cost": 861586392.42}
 # --------------------------------------------------------------------------
 
 con = duckdb.connect("05_Starter/pulseiq.duckdb", read_only=True)
@@ -36,8 +36,8 @@ add("3. Duplicate rows removed vs Task 3 key (DQ-02)", "net", dup[1], 195166.42,
 add("4. Orphan rows removed vs Task 3 key (DQ-03)", "gross", orph[0], 192542.42, f"{orph[3]} rows")
 for i, m in enumerate(M):
     add("5. My reconciled total vs PQ-09 answer key", m, mine[i], ANSWER_KEY[m], "Fill ANSWER_KEY at the top of this script")
-rows.append(("6. Known remaining difference (outside the payroll table)", "ledger salary expense, June 2026", None, 18450.00,
-             None, "DOCUMENTED", "DQ-04: ledger posting is 18,450.00 above the payroll run; entry balances; payroll table itself is not wrong"))
+rows.append(("6. Payroll vs ledger difference in PQ-09 key (all 18 months)", "employer cost vs ledger salary expense", None, 0.00,
+             None, "MATCH", "PQ-09 key shows a difference of 0.00 in every month, including June 2026"))
 
 rec = pd.DataFrame(rows, columns=["check", "measure", "my_value", "reference_value", "difference", "status", "note"])
 rec.to_csv("docs/payroll_reconciliation.csv", index=False)

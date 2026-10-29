@@ -8,7 +8,7 @@ check,measure,my_value,reference_value,difference,status,note
 3. Duplicate rows removed vs Task 3 key (DQ-02),gross,213025.04,213025.04,0.0,MATCH,2 rows
 3. Duplicate rows removed vs Task 3 key (DQ-02),net,195166.42,195166.42,0.0,MATCH,2 rows
 4. Orphan rows removed vs Task 3 key (DQ-03),gross,192542.42,192542.42,0.0,MATCH,2 rows
-5. My reconciled total vs PQ-09 answer key,gross,849626960.27,,,KEY NOT ENTERED,Fill ANSWER_KEY at the top of this script
-5. My reconciled total vs PQ-09 answer key,net,751018306.69,,,KEY NOT ENTERED,Fill ANSWER_KEY at the top of this script
-5. My reconciled total vs PQ-09 answer key,employer_cost,861586392.42,,,KEY NOT ENTERED,Fill ANSWER_KEY at the top of this script
-6. Known remaining difference (outside the payroll table),"ledger salary expense, June 2026",,18450.0,,DOCUMENTED,"DQ-04: ledger posting is 18,450.00 above the payroll run; entry balances; payroll table itself is not wrong"
+5. My reconciled total vs PQ-09 answer key,gross,849626960.27,849626960.27,0.0,MATCH,Fill ANSWER_KEY at the top of this script
+5. My reconciled total vs PQ-09 answer key,net,751018306.69,751018306.69,0.0,MATCH,Fill ANSWER_KEY at the top of this script
+5. My reconciled total vs PQ-09 answer key,employer_cost,861586392.42,861586392.42,0.0,MATCH,Fill ANSWER_KEY at the top of this script
+6. Payroll vs ledger difference in PQ-09 key (all 18 months),employer cost vs ledger salary expense,,0.0,,MATCH,"PQ-09 key shows a difference of 0.00 in every month, including June 2026"

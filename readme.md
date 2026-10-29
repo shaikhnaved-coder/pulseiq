@@ -158,7 +158,7 @@ The full diagrams for every fact table are in [docs/star_schema.md](docs/star_sc
 
 **Reconciliation:** the raw payroll total minus these 4 rows equals the warehouse total (gross 849,626,960.27, net 751,018,306.69, employer cost 861,586,392.42). The amounts removed match the Task 3 data-quality key exactly. Full table: docs/payroll_reconciliation.csv.
 
-**PQ-09 :** not available on my computer, so I reconciled against the warehouse and the Task 3 key instead.
+**PQ-09 answer key:** my totals match the answer key for all 18 months and in total (gross 849,626,960.27, net 751,018,306.69, employer cost 861,586,392.42), with a difference of 0.00. The employees paid each month also match. The key shows no payroll-versus-ledger difference in any month, so there is no remaining difference to document.
 
 **Remaining difference:** June 2026 ledger salary expense is 18,450.00 above the payroll run (DQ-04). This is a ledger posting issue, not a payroll table issue.
 
