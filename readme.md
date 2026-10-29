@@ -129,3 +129,20 @@ The full diagrams for every fact table are in [docs/star_schema.md](docs/star_sc
 
 ### Predicted, not certain
 ![Predicted risk](docs/prediction.png)
+
+## Team productivity (Task 8)
+![Team page 1](docs/Teamproductivity.png)
+
+![Team page 2](docs/teamscripts.png)
+
+![Team page 3](docs/blocked.png)
+
+**Rules:** velocity = story points of Done tasks; cycle time = days from started to completed, Done tasks only; on-time = Done tasks marked completed_on_time = Y divided by Done tasks. Cancelled tasks are excluded from all three and shown separately.
+
+**Verified by hand:** Support Tooling and Design Systems were recalculated from the raw task table and matched the page exactly (Support Tooling: 10,274 points, 4.8 days, 92.3% on time; Design Systems: 2,257 points, 4.8 days, 93.6% on time). For sprint SP-38 I also checked the sums in Excel: [Support Tooling Excel velocity] and [Design Systems Excel velocity], matching the page.
+
+**Findings:** 
+-- 3 findings about team health--
+- Delivery reliability: Growth Marketing has the lowest on-time rate at 91.3%, 1.6 points below the overall 92.9%.
+- Slowest flow: Growth Marketing has the longest cycle time at 5.1 days against 4.8 days overall.
+- Rework and blockers: Finance Automation reopens the most work: 4.7% of its tasks (52) against 3.9% overall. Internal IT has the    highest share of blocked work: 5.6% of its tasks (111 tasks) against 3.6% overall.
