@@ -130,7 +130,7 @@ The full diagrams for every fact table are in [docs/star_schema.md](docs/star_sc
 ### Predicted, not certain
 ![Predicted risk](docs/prediction.png)
 
-## Team productivity (Task 8)
+## Team productivity 
 ![Team page 1](docs/Teamproductivity.png)
 
 ![Team page 2](docs/teamscripts.png)
@@ -146,3 +146,20 @@ The full diagrams for every fact table are in [docs/star_schema.md](docs/star_sc
 - Delivery reliability: Growth Marketing has the lowest on-time rate at 91.3%, 1.6 points below the overall 92.9%.
 - Slowest flow: Growth Marketing has the longest cycle time at 5.1 days against 4.8 days overall.
 - Rework and blockers: Finance Automation reopens the most work: 4.7% of its tasks (52) against 3.9% overall. Internal IT has the    highest share of blocked work: 5.6% of its tasks (111 tasks) against 3.6% overall.
+
+## Payroll cost and reconciliation 
+![Payroll page 1](docs/payroll_1.png)
+
+![Payroll page 2](docs/payroll_2.png)
+
+![Payroll page 3](docs/payroll_3.png)
+
+**Excluded rows (4):** two exact duplicates of an existing employee-month (PI-X0001, PI-X0002) and two payments to employee IDs that do not exist (PI-X0003, PI-X0004). Together they overstate gross pay by 405,567.46. I excluded them because a duplicate pays the same person twice and a payment to a non-existent employee cannot be real. Full list: docs/payroll_excluded_rows.csv.
+
+**Reconciliation:** the raw payroll total minus these 4 rows equals the warehouse total (gross 849,626,960.27, net 751,018,306.69, employer cost 861,586,392.42). The amounts removed match the Task 3 data-quality key exactly. Full table: docs/payroll_reconciliation.csv.
+
+**PQ-09 :** not available on my computer, so I reconciled against the warehouse and the Task 3 key instead.
+
+**Remaining difference:** June 2026 ledger salary expense is 18,450.00 above the payroll run (DQ-04). This is a ledger posting issue, not a payroll table issue.
+
+**Privacy:** the page shows only totals and averages. Groups under 5 people are hidden, including the one-person Executive Office, so department charts add up to less than the company total.

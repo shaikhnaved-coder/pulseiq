@@ -1,0 +1,5 @@
+payroll_item_id,run_id,month,department_id,gross_pay,net_pay,employer_cost,rule,reason
+PI-X0001,PR-2026-02,2026-02-01,D02,153011.89,137153.27,154811.89,duplicate_employee_month,Same employee paid twice in one payroll run; the repeat row has a new item id and overstates payroll
+PI-X0002,PR-2025-05,2025-05-01,D08,60013.15,58013.15,61813.15,duplicate_employee_month,Same employee paid twice in one payroll run; the repeat row has a new item id and overstates payroll
+PI-X0003,PR-2026-04,2026-04-01,D01,96015.0,95815.0,96015.0,orphan_employee,"Employee id does not exist in dim_employee, so the payment cannot belong to any real employee"
+PI-X0004,PR-2025-12,2025-12-01,D09,96527.42,94527.42,98327.42,orphan_employee,"Employee id does not exist in dim_employee, so the payment cannot belong to any real employee"
