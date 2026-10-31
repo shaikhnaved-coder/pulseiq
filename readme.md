@@ -163,3 +163,56 @@ The full diagrams for every fact table are in [docs/star_schema.md](docs/star_sc
 **Remaining difference:** June 2026 ledger salary expense is 18,450.00 above the payroll run (DQ-04). This is a ledger posting issue, not a payroll table issue.
 
 **Privacy:** the page shows only totals and averages. Groups under 5 people are hidden, including the one-person Executive Office, so department charts add up to less than the company total.
+
+##  Budget versus actual and KPI targets :
+
+**Objective:** compare payroll to budget and KPIs to targets, with variance and traffic lights.
+**Page:** `app/pages/Budget_vs_Actual.py` (run with `streamlit run app/app.py`, then open Budget vs Actual in the sidebar).
+
+### What was built
+- `budget_payroll_dept_month` and `kpi_targets` were already loaded in the `clean` schema by the ETL, so they were used from there.
+- Three DuckDB views in the `metrics` schema, each built by a script in `src/`:
+  - `v_payroll_budget_variance`: budget, actual, variance, variance % and status for every department and month (198 rows).
+  - `v_kpi_variance`: target, actual, variance and status for 4 KPIs, every department and month (720 rows).
+  - `v_overspend_rank`: total variance per department over 18 months, ranked.
+
+### Rules (stated on the page too)
+- **Actual payroll** is employer cost (gross pay + employer PF + employer ESI) from the valid payroll rows, the same measure as the Payroll Cost page.
+- **Sign rule:** variance = actual minus budget (or target). For payroll, **positive means overspend**. Variance % = variance divided by budget, times 100.
+- **Payroll lights:** Green = up to 2% over budget (or under); Amber = over 2% and up to 5%; Red = over 5%; Grey = no actual data.
+- **KPI lights:** the dataset gives targets but no colour rules, so these are our own choice. Attendance, task completion: higher is better. Overtime share, attrition: lower is better. Green = target met. Attendance: Amber = up to 2 points below target, Red = more than 2 points below. Other KPIs: Amber = missed by up to 10% of the target value, Red = missed by more.
+- **Task completion** is stored per sprint and team, so it was rolled up to department and month with a weighted average (weighted by number of tasks).
+
+### Data notes
+- **D00 (Executive Office)** has a budget but no payroll rows and no KPI targets. It is Grey and left out of totals and the ranking.
+- **D10 (Legal & Compliance)** has no task-completion target and no sprint data (Grey). Its attrition is Grey in 12 months: the attrition metric from Task 7 shows no value for groups under 10 people (the smallest group in that view is 10), and D10 has 8 to 11 people.
+- **Attrition shows many Reds (59)** because small teams swing a lot: one exit in a small team is far above a 1% target.
+
+### Results
+- **Company payroll:** budget 853.1 M, actual 852.8 M, variance -0.35 M (-0.04%) for the 10 departments with payroll data.
+- **Payroll lights (198 department-months):** 110 Green, 44 Amber, 26 Red, 18 Grey.
+- **Largest overspend:** Data & AI (+992,768, 0.90%), then Product & Design (+608,352, 0.87%). Engineering is the largest budget and finished 2.05 M under budget. Sales has the most Red months (5) but nets to about zero, so it is volatile rather than overspending.
+- **KPI lights:** attendance 106 Green, 39 Amber, 35 Red. Attrition 109 Green, 59 Red, 12 Grey. Overtime 177 Green, 1 Amber, 2 Red. Task completion 136 Green, 25 Amber, 1 Red, 18 Grey.
+
+### Verification
+Three department-months were recomputed by hand from the individual payroll rows and the raw budget file, and all three match the page:
+
+| Department | Month | Budget | Actual | Variance | Variance % | Status |
+|---|---|---|---|---|---|---|
+| Sales (D04) | 2025-04 | 5,481,000 | 5,885,879.82 | +404,879.82 | 7.39 | Red |
+| Data & AI (D03) | 2025-10 | 6,070,000 | 6,315,814.86 | +245,814.86 | 4.05 | Amber |
+| Engineering (D01) | 2025-04 | 23,340,000 | 21,428,108.75 | -1,911,891.25 | -8.19 | Green |
+
+### Recommendations
+These come from patterns in the monthly numbers; the causes should be confirmed with Finance.
+1. **Data & AI:** the 4 Red months are all quarter-end months where the budget dips while fixed pay stays flat. Re-phase the budget, build the April 2026 pay step-up (about 10% per employee) into the next budget, and ask Finance whether the dips were planned vacancies.
+2. **Product & Design:** headcount and cost per employee both rose, and the two Red months match a budget drop (May 2025) and a 150 k variable-pay payout (Oct 2025). Budget variable pay in the month it is paid and base the budget on the approved headcount plan. The last 4 months are on budget, so no cost action is needed now.
+
+### Screenshots
+![Payroll variance heatmap](docs/Budget_payroll_1.png)
+![Departments ranked by overspend](docs/Ranking.png)
+![Detail by department and month](docs/Department.png)
+![KPI status by department and month](docs/KPI_target.png)
+![Latest month scorecard and verification](docs/Scorecard.png)
+![Recommendations](docs/recommendations.png)
+![Recommendations](docs/recommendations2.png)
