@@ -216,3 +216,33 @@ These come from patterns in the monthly numbers; the causes should be confirmed 
 ![Latest month scorecard and verification](docs/Scorecard.png)
 ![Recommendations](docs/recommendations.png)
 ![Recommendations](docs/recommendations2.png)
+
+## Phase 3: Money and insight :
+
+**What I built:** a P&L page with a month selector (`app/pages/PnL_Expenses.py`) on top of views in the `metrics` schema (`src/build_views.py`): revenue, expenses, net profit and margin by month, expenses by category, and the top 10 vendors.
+
+**How accounts are treated:** `dim_account` marks 5 rows as groups (`is_group = 'Y'`): 1000 Assets, 2000 Liabilities, 3000 Equity, 4000 Income and 5000 Expenses. The P&L only uses detail accounts (24 on the Profit & Loss statement), so a group and its children are never counted together. No ledger lines are posted to group accounts, but the views exclude them anyway as a safeguard.
+
+![P&L page with month selector](docs/pnl.png)
+![Charts of Revenue and Profit](docs/pnlchart.png)
+![Expenses by category and top 10 vendors](docs/vendors.png)
+![Tie-out to the governed metrics](docs/tieout.png)
+### Tie-out table
+
+The README sheet has no profit headline (it only lists row counts), so I tied my totals to the governed metrics in the metric dictionary (M16 Revenue, M17 Net profit, M18 Operating margin) and to `fact_ledger` calculated independently.
+
+| Check | My total | Dictionary / ledger | Difference | Status |
+|---|---|---|---|---|
+| Revenue vs M16 (`m16_revenue`) | 1,259,204,600 | 1,259,204,600 | 0 | TIES |
+| Revenue vs fact_ledger, accounts 4001-4004 | 1,259,204,600 | 1,259,204,600 | 0 | TIES |
+| Expenses vs fact_ledger, accounts 5xxx | 1,036,264,914 | 1,036,264,914 | 0 | TIES |
+| Net profit vs M17 formula | 224,665,138 | 224,665,138 | 0 | TIES |
+| Operating margin % vs M18 formula | 17.84 | 17.84 | 0 | TIES |
+
+Revenue also matches `m16_revenue` in all 18 months, and expense bills match the ledger on all 12 bill accounts.
+
+### Findings
+
+1. **Margin swings a lot from month to month.** Over the 18 months the operating margin is 17.8%, but Aug 2026 reached 27.2% while Jul 2025 (8.3%) and Apr 2025 (8.9%) were the weakest. Jul 2025 also had the lowest revenue of the 18 months (56.8M), so expenses of 52.1M took most of it.
+2. **People cost drives the cost base.** Salaries & Wages are 75.9% of all expenses, and with Incentives & Bonus (5.8%) people cost is over 80%. Office Rent is third at 3.7%, so margin depends mainly on payroll growth versus revenue growth.
+3. **Vendor spend is concentrated.** The top 3 vendors are 26.6% of bill value and the top 10 are 60.9%. Skyline Realty Holdings (16.9M) is the largest, followed by two cloud vendors (StratoHost and NimbusCloud). 23 bills worth 9.9M are still unpaid. Vendor bills are only about 16% of P&L expenses, because payroll is booked directly in the ledger.
