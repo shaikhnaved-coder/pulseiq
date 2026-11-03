@@ -246,3 +246,28 @@ Revenue also matches `m16_revenue` in all 18 months, and expense bills match the
 1. **Margin swings a lot from month to month.** Over the 18 months the operating margin is 17.8%, but Aug 2026 reached 27.2% while Jul 2025 (8.3%) and Apr 2025 (8.9%) were the weakest. Jul 2025 also had the lowest revenue of the 18 months (56.8M), so expenses of 52.1M took most of it.
 2. **People cost drives the cost base.** Salaries & Wages are 75.9% of all expenses, and with Incentives & Bonus (5.8%) people cost is over 80%. Office Rent is third at 3.7%, so margin depends mainly on payroll growth versus revenue growth.
 3. **Vendor spend is concentrated.** The top 3 vendors are 26.6% of bill value and the top 10 are 60.9%. Skyline Realty Holdings (16.9M) is the largest, followed by two cloud vendors (StratoHost and NimbusCloud). 23 bills worth 9.9M are still unpaid. Vendor bills are only about 16% of P&L expenses, because payroll is booked directly in the ledger.
+
+## Task 12: Receivables and cash
+
+**Open invoices:** only SENT, OVERDUE and PARTIALLY_PAID are open (62 invoices, 139,394,278 total). DRAFT, CANCELLED and PAID are not open; their balance of 1,028,624 is excluded.
+
+**Ageing:** days past due at the data cutoff, in buckets 0-30, 31-60, 61-90 and 90+ (not-yet-due invoices sit in 0-30). The 31-60 bucket is empty.
+
+**Check:** the 4 buckets add up to 139,394,278 and match the direct total from fact_invoice (TIES). Overdue across all open invoices (27,110,866) matches metrics.m21. Status OVERDUE alone is 26,140,954; the 969,912 difference is the one PARTIALLY_PAID invoice, which is past due but not labelled OVERDUE. 
+Hand check: INV-00691 (PARTIALLY_PAID) has total 1,701,600 minus paid 731,688 = 969,912, which equals its balance due. It is 7 days past due, so it sits in the 0-30 bucket.
+
+**Cash:** cash in = payments received; cash out = monthly expenses from the P&L views (no separate payments-out ledger was used).
+
+**Findings:**
+1. 96.4% of open receivables (134.4M) is in 0-30. Only 3 invoices are more than 60 days past due (4.98M).
+2. The slowest payers are Triveni Steel Industries (121.3 days on average) and Siruvani Agro Tech (105.4 days). Both also have overdue balances.
+3. Marina Media Works owes the most overdue money (7.11M on 2 invoices), followed by Siruvani Agro Tech (6.10M on 3 invoices). Together they are about half of the 26.1M overdue.
+4. Cash in exceeded cash out in most months. April 2025 was negative (net -9.31M).
+
+### Screenshots
+
+![Receivables ageing](docs/recievable_cash.png)
+![Average days to pay by client](docs/averageday_pay.png)
+![Cash in vs cash out by month](docs/cash_in_out.png)
+![Clients with the most overdue money](docs/overdue_money.png)
+![Checked totals - buckets tie to total open receivables](docs/totals.png)

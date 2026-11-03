@@ -1,0 +1,12 @@
+check,value,result
+"Total open receivables (balance_due, SENT/OVERDUE/PARTIALLY_PAID)",139394278,
+Sum of the 4 ageing buckets,139394278,TIES
+Total minus paid on open invoices,139394278,TIES
+"Balance on non-open invoices (DRAFT, PAID, CANCELLED) left out",1028624,info
+Overdue by client (status OVERDUE),26140954,
+Open invoices past due (any status),27110866,
+metrics.m21 overdue receivables (latest report_date),27110866,TIES (all open invoices past due)
+Bucket 0-30 (59 invoices),134417038,
+Bucket 31-60 (0 invoices),0,
+Bucket 61-90 (1 invoices),1940982,
+Bucket 90+ (2 invoices),3036258,
