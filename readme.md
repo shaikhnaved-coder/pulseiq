@@ -271,3 +271,21 @@ Hand check: INV-00691 (PARTIALLY_PAID) has total 1,701,600 minus paid 731,688 = 
 ![Cash in vs cash out by month](docs/cash_in_out.png)
 ![Clients with the most overdue money](docs/overdue_money.png)
 ![Checked totals - buckets tie to total open receivables](docs/totals.png)
+
+## Task 13: Cross-department impact view
+
+**Grain:** one row per department and month (198 rows: 11 departments x 18 months, Apr 2025 to Sep 2026). Headcount (month-end, warehouse), payroll (v_payroll_valid: employer cost and overtime pay), attendance (fact_attendance_monthly), leave (v_leave_monthly) and exits (m03) are each aggregated to that grain first, then joined (`metrics.v_dept_month_impact`). Added overtime cost, overtime % of cost and leave days per head.
+
+**Safety checks:** no duplicate department-months; each total in the combined view equals its source total (payroll 861,586,392.42; overtime 3,024,619.28; present days 141,139; leave days 7,342; exits 87; headcount 7,253).
+
+**Comparison with reference_summary_dept_month:** all 198 department-months match on headcount, payroll cost, gross pay, overtime pay, overtime %, overtime hours, exits, attrition and attendance rate. Attendance rate first differed in 149 rows because my formula ignored half days; the reference counts a half day as half a day present, so I changed the formula and it now matches all 198 rows. The reference excludes the 4 invalid payroll rows (410,967.46), as my pipeline does. The reference has no leave columns, so leave days are checked against their source. Details are in docs/pq13_difference_notes.md.
+
+**Findings:**
+1. Engineering has the highest payroll cost (341.0M, about 40% of 861.6M), no overtime pay, and attrition of 22.4% over the period.
+2. Operations & IT has the highest attrition (36.6%, 10 exits) and the second-highest overtime (825,356).
+3. Overtime is paid in only four departments (Customer Support 1.29M, Operations & IT 825K, Human Resources 488K, Finance 420K). Cost and attrition do not move together.
+4. Attrition is for the whole 18 months, not annualised.
+
+![Department comparison 1](docs/cross_department.png)
+![Department comparison 2](docs/Department_chart.png)
+![Comparison with reference](docs/Comparision_summary.png)

@@ -1,0 +1,16 @@
+my_column,reference_column,rows_compared,rows_matching,rows_different,max_abs_diff,total_diff
+headcount,headcount_end,198.0,198.0,0,0.0,0.0
+headcount_m01,headcount_end,198.0,180.0,18,0.0,0.0
+payroll_cost,employer_cost,198.0,198.0,0,0.0,0.0
+payroll_cost_incl_excluded,employer_cost,198.0,194.0,4,154811.89,410967.46
+gross_pay,gross_pay,198.0,198.0,0,0.0,0.0
+overtime_cost,overtime_pay,198.0,198.0,0,0.0,0.0
+overtime_cost_incl_excluded,overtime_pay,198.0,198.0,0,0.0,0.0
+overtime_pct_of_cost,overtime_share_pct,198.0,198.0,0,0.0,0.0
+overtime_hours,overtime_hours,198.0,198.0,0,0.0,0.0
+attendance_rate,attendance_rate,198.0,198.0,0,0.0,0.0
+attendance_rate_present_only,attendance_rate,198.0,49.0,149,0.0264,-0.3808
+exits,exits,198.0,198.0,0,0.0,0.0
+attrition_pct,attrition_rate_monthly_pct,198.0,198.0,0,0.0,0.0
+department-months only in mine,,,,0,,
+department-months only in reference,,,,0,,
