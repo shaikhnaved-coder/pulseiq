@@ -289,3 +289,22 @@ Hand check: INV-00691 (PARTIALLY_PAID) has total 1,701,600 minus paid 731,688 = 
 ![Department comparison 1](docs/cross_department.png)
 ![Department comparison 2](docs/Department_chart.png)
 ![Comparison with reference](docs/Comparision_summary.png)
+
+## Task 14: AI signals page
+
+Page: `app/pages/AI_Signals.py`. Views: `src/build_ai_views.py`. Backtest: `src/build_ai_backtest.py`.
+Every AI chart is labelled "AI-generated, for human review".
+
+### Findings
+- The AI flagged 405 records. 184 are payroll flags with an estimated Rs 31.42 million at risk. 221 are attendance flags with no rupee value (the data contract says money at risk is blank for attendance rows), so they are shown as counts only and never as zero.
+- STATISTICAL_OUTLIER (Rs 19.43 million, 145 records) and GROSS_ABOVE_NORM (Rs 9.42 million, 13 records) make up about 92% of the money at risk.
+- The AI forecast covers Oct 2026 to Mar 2027 with an 80% range. Actual data ends in Sep 2026, so the published forecast has no months with known actuals yet and its error table is empty (shown honestly on the page).
+- To still measure reliability, I ran my own backtest (trained through Mar 2026, forecast Apr to Sep 2026). Headcount error (MAPE) was 1.97%, average miss 8.2 people, and the actual fell inside the 80% range in 6 of 6 months. Attrition was off by 0.54 percentage points a month on average.
+
+### Caveats
+- The backtest is my own approximation of the method, not the AI's published forecast.
+- Six months is a small test.
+- The first forecast month (426.3) starts below the last actual (441), because the simple trend model does not follow the recent jump.
+- The forecast company total ("ALL") is matched to the sum of all departments. D00 is the 1-person Executive department, not the company total.
+
+Evidence: `docs/Anomalies.png`, `docs/Forecast.png`, `docs/Aisignal_error.png`.

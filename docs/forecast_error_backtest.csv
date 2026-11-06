@@ -1,0 +1,13 @@
+metric,month_start_date,forecast,lower_80,upper_80,actual,error,abs_error,abs_pct_error,inside_80,method_note
+headcount_end,2026-04-01,419.2,405.4,433.1,407.0,12.22,12.22,3.0,True,"Own backtest trained through 2026-03, not the AI's published forecast"
+headcount_end,2026-05-01,420.5,406.6,434.3,409.0,11.46,11.46,2.8,True,"Own backtest trained through 2026-03, not the AI's published forecast"
+headcount_end,2026-06-01,424.5,410.7,438.4,417.0,7.54,7.54,1.81,True,"Own backtest trained through 2026-03, not the AI's published forecast"
+headcount_end,2026-07-01,429.6,415.8,443.5,421.0,8.62,8.62,2.05,True,"Own backtest trained through 2026-03, not the AI's published forecast"
+headcount_end,2026-08-01,433.0,419.2,446.9,427.0,6.03,6.03,1.41,True,"Own backtest trained through 2026-03, not the AI's published forecast"
+headcount_end,2026-09-01,437.6,423.7,451.5,441.0,-3.39,3.39,0.77,True,"Own backtest trained through 2026-03, not the AI's published forecast"
+attrition_rate_monthly_pct,2026-04-01,1.22,,,1.47,-0.25,0.25,17.03,,"Own backtest trained through 2026-03, not the AI's published forecast"
+attrition_rate_monthly_pct,2026-05-01,1.76,,,0.98,0.78,0.78,79.29,,"Own backtest trained through 2026-03, not the AI's published forecast"
+attrition_rate_monthly_pct,2026-06-01,1.43,,,0.98,0.46,0.46,46.64,,"Own backtest trained through 2026-03, not the AI's published forecast"
+attrition_rate_monthly_pct,2026-07-01,1.12,,,1.44,-0.32,0.32,22.0,,"Own backtest trained through 2026-03, not the AI's published forecast"
+attrition_rate_monthly_pct,2026-08-01,1.54,,,0.48,1.06,1.06,223.7,,"Own backtest trained through 2026-03, not the AI's published forecast"
+attrition_rate_monthly_pct,2026-09-01,1.05,,,0.7,0.35,0.35,49.17,,"Own backtest trained through 2026-03, not the AI's published forecast"
