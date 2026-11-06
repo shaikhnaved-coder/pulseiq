@@ -307,4 +307,8 @@ Every AI chart is labelled "AI-generated, for human review".
 - The first forecast month (426.3) starts below the last actual (441), because the simple trend model does not follow the recent jump.
 - The forecast company total ("ALL") is matched to the sum of all departments. D00 is the 1-person Executive department, not the company total.
 
-Evidence: `docs/Anomalies.png`, `docs/Forecast.png`, `docs/Aisignal_error.png`.
+![Anomalies by type](docs/Anomalies.png)
+![Forecast vs actual](docs/Forecast.png)
+![Forecast error](docs/Aisignal_error.png)
+
+Forecast error table (backtest): `docs/forecast_error_backtest.csv`
