@@ -315,7 +315,7 @@ Forecast error table (backtest): `docs/forecast_error_backtest.csv`
 
 ## Task 15: Executive company-health scorecard
 
-Page: `app/pages/Executive_Scorecard.py`. View: `src/build_scorecard.py` creates `metrics.v_scorecard` (8 KPIs x 18 months). Every value comes from the metric views (m01 to m22). Month selector, traffic-light status, trend, target and a link to the detail page on every tile. Prints on one A4 sheet (Ctrl+P).
+Page: `app/pages/Scorecard.py`. View: `src/build_scorecard.py` creates `metrics.v_scorecard` (8 KPIs x 18 months). Every value comes from the metric views (m01 to m22). Month selector, traffic-light status, trend, target and a link to the detail page on every tile. Prints on one A4 sheet (Ctrl+P).
 
 ![Executive scorecard](docs/scorecard2.png)
 
