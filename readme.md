@@ -312,3 +312,22 @@ Every AI chart is labelled "AI-generated, for human review".
 ![Forecast error](docs/Aisignal_error.png)
 
 Forecast error table (backtest): `docs/forecast_error_backtest.csv`
+
+## Task 15: Executive company-health scorecard
+
+Page: `app/pages/Executive_Scorecard.py`. View: `src/build_scorecard.py` creates `metrics.v_scorecard` (8 KPIs x 18 months). Every value comes from the metric views (m01 to m22). Month selector, traffic-light status, trend, target and a link to the detail page on every tile. Prints on one A4 sheet (Ctrl+P).
+
+![Executive scorecard](docs/scorecard2.png)
+
+KPI list with reasons: `docs/scorecard_kpi_list.md`. Print version: `docs/Scorecard_Sep2026.pdf`.
+
+### Findings (Sep 2026)
+- 6 green, 2 amber, 0 red. Amber: payroll as % of revenue (69.17% vs a 68.50% benchmark) and rolling 12-month attrition (13.91% vs a 12% target).
+- Attrition is red in 17 of the 18 months, so it is the one KPI that is persistently off target. Task completion and overtime share are green in all 18 months.
+- Operating margin fell from 27.16% in Aug to 18.67% in Sep while payroll as % of revenue rose from 60.64% to 69.17%.
+
+### Caveats
+- Revenue, margin, payroll % and DSO have no target in the data, so their benchmark is the company's own 18-month average, labelled on the page. It should be replaced by a finance target.
+- The attrition target (12%) is the data's 1% monthly target x 12, my conversion.
+- Company-level numbers combine departments: attrition uses the M05 formula over m01 and m03 for all departments, because m05 leaves out departments under 10 people (13.99% vs 13.91% in Sep). Attendance is weighted by employees and overtime by cost; both match the source tables to within 0.05 and 0.003 points.
+- Tolerance bands for amber are my judgement and are printed on the page. The task feed is a sample, per the metric dictionary.
