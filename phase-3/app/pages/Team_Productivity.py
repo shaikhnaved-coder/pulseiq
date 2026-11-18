@@ -1,3 +1,4 @@
+from db import get_connection
 import duckdb, numpy as np, pandas as pd, streamlit as st, altair as alt
 
 st.set_page_config(page_title="Team Productivity", layout="wide")
@@ -5,7 +6,7 @@ st.title("Team Productivity")
 
 @st.cache_data
 def q(sql):
-    con = duckdb.connect("05_Starter/pulseiq.duckdb", read_only=True)
+    con = get_connection()
     return con.execute(sql).df()
 
 d = q("SELECT * FROM metrics.m29_team_sprint_delivery")

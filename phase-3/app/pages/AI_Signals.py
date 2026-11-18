@@ -1,3 +1,4 @@
+from db import get_connection
 from pathlib import Path
 
 import altair as alt
@@ -6,13 +7,12 @@ import pandas as pd
 import streamlit as st
 
 # Database sits at <project>/05_Starter/pulseiq.duckdb; this file is app/pages/AI_Signals.py
-DB_PATH = Path(__file__).resolve().parents[2] / "05_Starter" / "pulseiq.duckdb"
 AI_LABEL = "AI-generated, for human review"
 
 
 @st.cache_data
 def q(sql: str) -> pd.DataFrame:
-    con = duckdb.connect(str(DB_PATH), read_only=True)
+    con = get_connection()
     df = con.execute(sql).df()
     con.close()
     return df

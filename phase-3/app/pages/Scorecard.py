@@ -1,17 +1,17 @@
+from db import get_connection
 from pathlib import Path
 
 import duckdb
 import pandas as pd
 import streamlit as st
 
-DB_PATH = Path(__file__).resolve().parents[2] / "05_Starter" / "pulseiq.duckdb"
 
 st.set_page_config(page_title="Executive scorecard", layout="wide")
 
 
 @st.cache_data
 def load() -> pd.DataFrame:
-    con = duckdb.connect(str(DB_PATH), read_only=True)
+    con = get_connection()
     df = con.execute(
         "SELECT * FROM metrics.v_scorecard ORDER BY kpi_id, month_start_date"
     ).df()

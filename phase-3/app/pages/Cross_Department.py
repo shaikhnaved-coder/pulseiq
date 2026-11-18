@@ -1,6 +1,7 @@
+from db import get_connection
 import os, duckdb, pandas as pd, altair as alt, streamlit as st
 st.set_page_config(page_title="Cross-department impact", layout="wide")
-con = duckdb.connect("05_Starter/pulseiq.duckdb", read_only=True)
+con = get_connection()
 q = lambda sql: con.execute(sql).fetchdf()
 
 st.title("Cross-department impact view")

@@ -1,4 +1,4 @@
-import plotly.express as px
+﻿import plotly.express as px
 import pandas as pd
 import streamlit as st
 from db import query
@@ -69,6 +69,9 @@ st.caption(
     f"{start:%b %Y} to {end:%b %Y}. Groups with fewer than 5 people are hidden "
     "(this removes Executive Office, which has 1 person)."
 )
+
+latest_data_month = pd.to_datetime(headcount["month_start_date"]).max()
+st.caption(f"Latest available data: {latest_data_month:%B %Y}")
 
 # ---------- chart 1: headcount trend ----------
 st.subheader("Headcount over time")

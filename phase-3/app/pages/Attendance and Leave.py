@@ -1,3 +1,4 @@
+from db import get_connection
 import duckdb, pandas as pd, streamlit as st, altair as alt
 
 st.set_page_config(page_title="Attendance & Leave", layout="wide")
@@ -5,7 +6,7 @@ st.title("Attendance and Leave Trends")
 
 @st.cache_data
 def q(sql):
-    con = duckdb.connect("05_Starter/pulseiq.duckdb", read_only=True)
+    con = get_connection()
     return con.sql(sql).df()
 
 att = q("SELECT * FROM wh.v_attendance_monthly")

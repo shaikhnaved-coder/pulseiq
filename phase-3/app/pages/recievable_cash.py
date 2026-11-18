@@ -1,6 +1,7 @@
+from db import get_connection
 import duckdb, pandas as pd, streamlit as st
 st.set_page_config(page_title="Receivables & Cash", layout="wide")
-con = duckdb.connect("05_Starter/pulseiq.duckdb", read_only=True)
+con = get_connection()
 q = lambda sql: con.execute(sql).fetchdf()
 
 st.title("Receivables and Cash Flow")

@@ -1,3 +1,4 @@
+from db import get_connection
 import duckdb, pandas as pd, streamlit as st, altair as alt
 
 st.set_page_config(page_title="Budget vs Actual", layout="wide")
@@ -5,7 +6,7 @@ st.title("Budget vs Actual and KPI Targets")
 
 @st.cache_data
 def q(sql):
-    con = duckdb.connect("05_Starter/pulseiq.duckdb", read_only=True)
+    con = get_connection()
     return con.execute(sql).df()
 
 COLORS = {"Green": "#2e9e5b", "Amber": "#f0a830", "Red": "#d64545", "Grey": "#b0b0b0"}

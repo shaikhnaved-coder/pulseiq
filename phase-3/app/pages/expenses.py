@@ -1,14 +1,13 @@
-import os
+from db import get_connection
+from pathlib import Path
 import duckdb
 import pandas as pd
 import streamlit as st
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-DB = os.path.join(ROOT, "05_Starter", "pulseiq.duckdb")
 
 @st.cache_data
 def load(sql, params=None):
-    con = duckdb.connect(DB, read_only=True)
+    con = get_connection()
     df = con.execute(sql, params or []).df()
     con.close()
     return df
@@ -76,7 +75,7 @@ with right:
 
 # ---------- tie-out ----------
 st.subheader("Tie-out to the governed metrics")
-tie_path = os.path.join(ROOT, "docs", "pnl_tieout.csv")
-if os.path.exists(tie_path):
+tie_path = Path(__file__).resolve().parents[2] / "docs" / "pnl_tieout.csv"
+if tie_path.exists():
     st.dataframe(pd.read_csv(tie_path), use_container_width=True, hide_index=True)
 st.caption("The README sheet has no profit headline, so totals are tied to the metric dictionary: M16 Revenue, M17 Net profit, M18 Operating margin.")
