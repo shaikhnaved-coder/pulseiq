@@ -331,3 +331,23 @@ KPI list with reasons: `docs/scorecard_kpi_list.md`. Print version: `docs/Scorec
 - The attrition target (12%) is the data's 1% monthly target x 12, my conversion.
 - Company-level numbers combine departments: attrition uses the M05 formula over m01 and m03 for all departments, because m05 leaves out departments under 10 people (13.99% vs 13.91% in Sep). Attendance is weighted by employees and overtime by cost; both match the source tables to within 0.05 and 0.003 points.
 - Tolerance bands for amber are my judgement and are printed on the page. The task feed is a sample, per the metric dictionary.
+
+## Phase 3 – Monthly Reporting
+
+PulseIQ generates a monthly Excel reporting pack containing five sections:
+
+1. **Headcount** – workforce headcount trends.
+2. **Attrition** – employee attrition metrics.
+3. **Payroll Cost** – monthly payroll cost analysis.
+4. **Profit and Loss** – financial performance.
+5. **Attendance** – employee attendance metrics.
+
+### Generate a Monthly Report
+
+Run these commands from the `phase-3` directory.
+
+Create and activate a virtual environment:
+
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
