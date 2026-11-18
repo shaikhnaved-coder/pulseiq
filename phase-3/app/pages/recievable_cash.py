@@ -49,7 +49,7 @@ import os
 st.subheader("5. Checked totals")
 
 # Build a safe absolute path to the docs folder at the root of the repository
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+# Get the absolute path of the repository root (two levels up from phase-3/app)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 csv_path = os.path.join(BASE_DIR, "docs", "ar_bucket_check.csv")
-
 st.dataframe(pd.read_csv(csv_path), use_container_width=True, hide_index=True)
