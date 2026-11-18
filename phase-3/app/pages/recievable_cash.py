@@ -44,5 +44,12 @@ st.dataframe(o.style.format({"overdue_amount": "{:,.0f}"})
                .background_gradient(subset=["overdue_amount"], cmap="Reds"),
              use_container_width=True, hide_index=True)
 
+import os
+
 st.subheader("5. Checked totals")
-st.dataframe(pd.read_csv("docs/ar_bucket_check.csv"), use_container_width=True, hide_index=True)
+
+# Build a safe absolute path to the docs folder at the root of the repository
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+csv_path = os.path.join(BASE_DIR, "docs", "ar_bucket_check.csv")
+
+st.dataframe(pd.read_csv(csv_path), use_container_width=True, hide_index=True)
