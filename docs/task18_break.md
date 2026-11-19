@@ -18,4 +18,18 @@ Demo assignments: HR user = Human Resources, Manager user = Design Systems (the 
 
 Known limitation: someone who runs many different queries could still compare results between them. Minimum group size plus complementary suppression handles single queries. A next step would be rounding counts to the nearest 5.
 
-Live link re-test: (fill in after the redeploy)
+## Live link re-test
+
+Redeployed the app and repeated the break-it attacks on the live link. Results matched my local tests.
+
+| Live test | Result |
+|---|---|
+| ADMIN, Company level, Department breakdown | 10 departments shown, Executive Office (1 person) excluded |
+| ADMIN, Product & Design, Team breakdown | 2 groups hidden, only Product Squad (15) shown, so the 1-person group cannot be found by subtraction |
+| MANAGER, Design Systems, Work mode | Scope locked to own team, 2 groups hidden, only Hybrid (5) shown |
+| MANAGER, City tier | Every group hidden, with a clear privacy message |
+| HR, average pay for Engineering | Blocked with an error (pay allowed only for Human Resources) |
+| HR, average pay for Human Resources | Shown (20 people) |
+| EXECUTIVE | Company level only, no pay metric, no team or department drill-down |
+
+Live link re-test: passed. No small group leaked.
