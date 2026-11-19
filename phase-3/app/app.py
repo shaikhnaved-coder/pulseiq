@@ -5,6 +5,11 @@ from db import query
 
 st.set_page_config(page_title="PulseIQ", layout="wide")
 st.title("PulseIQ: Workforce and headcount")
+from datetime import datetime
+from db import DB
+_m = query("SELECT MAX(month_start_date) AS m FROM metrics.v_scorecard").iloc[0, 0]
+_r = datetime.fromtimestamp(DB.stat().st_mtime).strftime("%Y-%m-%d %H:%M")
+st.caption(f"Data runs to {str(_m)[:7]}. The metrics database was last refreshed on {_r}.")
 
 # ---------- load data (metric views only) ----------
 names = query("SELECT department_id, department_name FROM metrics.lookup_department")
