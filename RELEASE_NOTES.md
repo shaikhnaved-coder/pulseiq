@@ -15,7 +15,7 @@ Data runs to: September 2026
 
 **Dashboard (live)**
 - Link: https://pulseiq-dashboard-naved.streamlit.app/
-- Pages: workforce and headcount, attendance and leave, attrition, team productivity, payroll cost, budget vs actual, P&L and expenses, receivables and cash, cross-department impact, AI signals, executive scorecard (8 KPIs), KPI explorer.
+- Pages: workforce and headcount, attendance and leave, attrition, team productivity, payroll cost, budget vs actual, P&L and expenses, receivables and cash, cross-department impact, AI signals, executive scorecard (8 KPIs plus an overdue receivables card for Sep 2026), KPI explorer.
 - KPI explorer: choose a metric and a dimension, drill down from company to department to team. Groups smaller than 5 people are hidden. What a user sees depends on the demo role (ADMIN, HR, MANAGER, EXECUTIVE).
 
 **Metrics API (live)**
@@ -28,6 +28,8 @@ Data runs to: September 2026
 - Monthly report builder: `python src/build_report.py --month YYYY-MM` (Excel file with five sections, date range and data cut-off on the cover).
 - Scheduled with GitHub Actions on the 2nd of every month at 08:30 IST.
 - Board pack (10 slides), consolidated report, and the Phase 1 to 4 reports.
+
+- Final Challenge: the overdue receivables card on the scorecard (see FINAL_CHALLENGE.md).
 
 ## What is not included
 
