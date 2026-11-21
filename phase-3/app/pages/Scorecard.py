@@ -19,6 +19,17 @@ def load() -> pd.DataFrame:
     df["month_start_date"] = pd.to_datetime(df["month_start_date"])
     return df
 
+@st.cache_data
+def load_overdue() -> pd.DataFrame:
+    con = get_connection()
+    out = con.execute(
+        "SELECT report_date, SUM(overdue_receivables) AS overdue, "
+        "SUM(overdue_invoices) AS invoices, COUNT(DISTINCT client_id) AS clients "
+        "FROM metrics.m21_overdue_receivables GROUP BY report_date ORDER BY report_date"
+    ).df()
+    con.close()
+    out["report_date"] = pd.to_datetime(out["report_date"])
+    return out
 
 COL = {"Green": "#2e9e5b", "Amber": "#e0a800", "Red": "#d64545", "Grey": "#888888"}
 
@@ -152,6 +163,23 @@ for k in sorted(cur["kpi_id"].unique()):
         "</div>"
     )
 
+ov = load_overdue()
+ov_row = ov[ov["report_date"].dt.to_period("M") == sel.to_period("M")]
+if not ov_row.empty:
+    o = ov_row.iloc[0]
+    tiles.append(
+        '<div class="sc-tile" style="grid-column:1 / -1; min-height:0; height:auto">'
+        '<div class="sc-head"><span>Overdue receivables (new)</span>'
+        f'<span class="sc-badge"><span class="sc-dot" style="background:{COL["Grey"]}"></span>NO TARGET</span></div>'
+        f'<div class="sc-value">₹{o["overdue"] / 1e6:,.2f} M</div>'
+        f'<div class="sc-line">{int(o["invoices"])} overdue invoices across {int(o["clients"])} clients '
+        f'(snapshot {o["report_date"]:%d %b %Y})</div>'
+        '<div class="sc-why">Money customers owe past the due date. It shows how much cash is stuck.</div>'
+        '<div class="sc-small">No target in the data, so no colour is given. Source: M21 · metrics.m21_overdue_receivables</div>'
+        '<div style="margin-top:4px"><a href="/Recievable_Cash" target="_self">Details: Receivables and cash →</a></div>'
+        "</div>"
+    )
+    
 foot = (
     "Status rule: Green = on or better than target. Amber = worse, but inside the tolerance band "
     "(revenue ₹5 M, margin 3 pts, payroll % 3 pts, DSO 5 days, attrition 2 pts, attendance 1.5 pts, "
