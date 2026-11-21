@@ -6,7 +6,7 @@ Workforce analytics and BI project (WorkforceOS Section 3, Data Analysts track) 
 
 
 
-\## Structure
+## Structure
 
 
 
@@ -20,27 +20,12 @@ Workforce analytics and BI project (WorkforceOS Section 3, Data Analysts track) 
 
 | phase-3/ | PQ-11 to PQ-15 | P\&L and expenses, receivables and cash, cross-department impact, AI signals, executive scorecard |
 
-
+| api/, app/, docs/ | PQ-16 to PQ-20 | Metrics API with lineage, live dashboard, KPI explorer, board pack, release notes |
 
 Each phase folder has its own README with the details, the screenshots (in docs/) and how to run it.
 
 
 
-\## Reports
+## Reports
 
-
-
-The Phase 1, Phase 2 and Phase 3 reports are submitted as separate PDFs.
-
-
-
-notepad C:\\work\\pulseiq\\.gitignore
-
-venv/
-
-.venv/
-
-\_\_pycache\_\_/
-
-\*.duckdb
-
+The Phase 1 to Phase 4 reports are submitted as separate PDFs. See RELEASE_NOTES.md for what v1.0.0 includes and its known limits, and FINAL_CHALLENGE.md for the final improvement.
